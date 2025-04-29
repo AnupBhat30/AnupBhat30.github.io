@@ -282,6 +282,7 @@ body.inverted .paper::before {
   margin-bottom: 2rem;
   position: relative;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .project-title {
@@ -290,14 +291,19 @@ body.inverted .paper::before {
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--primary-color);
   transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-body.inverted .project-title {
-  border-bottom: 1px solid var(--paper-color);
+.project-title::after {
+  content: "+";
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
 }
 
-.project:hover .project-title {
-  border-bottom: 1px solid transparent;
+.project.active .project-title::after {
+  transform: rotate(45deg);
 }
 
 .project-content {
@@ -307,7 +313,7 @@ body.inverted .project-title {
   transition: all 0.5s ease;
 }
 
-.project:hover .project-content {
+.project.active .project-content {
   max-height: 1000px;
   opacity: 1;
   padding-top: 1rem;
@@ -337,7 +343,7 @@ body.inverted .project-date {
   transition: all 0.3s ease;
 }
 
-.project:hover .project-details li {
+.project.active .project-details li {
   opacity: 1;
   transform: translateX(0);
 }
@@ -371,6 +377,23 @@ body.inverted .project-details li::before {
 }
 .project-details li:nth-child(6) {
   transition-delay: 0.6s;
+}
+
+@media (hover: hover) {
+  .project:hover .project-title {
+    border-bottom: 1px solid transparent;
+  }
+  
+  .project:hover .project-content {
+    max-height: 1000px;
+    opacity: 1;
+    padding-top: 1rem;
+  }
+  
+  .project:hover .project-details li {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .alter-ego {

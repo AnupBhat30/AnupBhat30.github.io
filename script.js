@@ -56,4 +56,23 @@ window.addEventListener("scroll", () => {
 randomPosition(document.getElementById("duality"));
 randomPosition(document.getElementById("of"));
 randomPosition(document.getElementById("a"));
-randomPosition(document.getElementById("man")); 
+randomPosition(document.getElementById("man"));
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle project clicks
+  const projects = document.querySelectorAll('.project');
+  
+  projects.forEach(project => {
+    project.addEventListener('click', function() {
+      // Close other projects
+      projects.forEach(p => {
+        if (p !== project) {
+          p.classList.remove('active');
+        }
+      });
+      
+      // Toggle current project
+      this.classList.toggle('active');
+    });
+  });
+}); 
