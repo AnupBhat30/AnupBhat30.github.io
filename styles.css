@@ -261,10 +261,10 @@ body.inverted .paper {
   height: 100%;
   background: linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.1) 1px,
+      rgba(0, 0, 0, 0.08) 1px,
       transparent 1px
     ),
-    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
   background-size: 20px 20px;
   transition: all 0.5s ease;
 }
@@ -272,10 +272,10 @@ body.inverted .paper {
 body.inverted .paper::before {
   background: linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.08) 1px,
       transparent 1px
     ),
-    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
 }
 
 .project {
@@ -494,10 +494,9 @@ body.inverted .project-details li::before {
 
 /* Blog Section Styles */
 .blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
 }
 
 .blog-post {
@@ -815,4 +814,35 @@ body.inverted .blog-list li::before {
     font-size: 0.8rem;
     padding: 1rem;
   }
+}
+
+.blog-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.blog-card-link .blog-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transform: translateY(-2px) scale(1.01);
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.contact-links {
+  margin-top: 0.5em;
+  font-size: 1.05em;
+}
+.contact-links a {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 500;
+  margin: 0 0.2em;
+  transition: color 0.2s;
+}
+.contact-links a:hover {
+  color: #0072b1; /* LinkedIn blue, or pick your accent color */
+}
+.contact-links span {
+  color: #888;
+  margin: 0 0.2em;
 } 
