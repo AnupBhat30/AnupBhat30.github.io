@@ -232,8 +232,23 @@ body.inverted .equation {
     font-size: 2rem;
   }
 
+  .typewriter {
+    white-space: normal;
+    overflow: visible;
+    animation: typing-mobile 3.5s steps(20, end);
+  }
+
   .inspiration-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@keyframes typing-mobile {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
   }
 }
 
