@@ -1,13 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const filterButtons = document.querySelectorAll('.filter-btn');
   const skillTags = document.querySelectorAll('.skill-tag');
 
-  filterButtons.forEach(button => {
+  filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      filterButtons.forEach(btn => btn.classList.remove('active'));
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
       button.classList.add('active');
       const category = button.dataset.category;
-      skillTags.forEach(tag => {
+      skillTags.forEach((tag) => {
         if (category === 'all' || tag.classList.contains(category)) {
           tag.classList.remove('hidden');
         } else {
@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   const projects = document.querySelectorAll('.project');
-  projects.forEach(project => {
-    project.addEventListener('click', function() {
-      projects.forEach(p => {
+  projects.forEach((project) => {
+    project.addEventListener('click', function () {
+      projects.forEach((p) => {
         if (p !== project) {
           p.classList.remove('active');
         }
@@ -28,4 +28,4 @@ document.addEventListener('DOMContentLoaded', function() {
       this.classList.toggle('active');
     });
   });
-}); 
+});
