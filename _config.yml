@@ -1,0 +1,6 @@
+# GitHub Pages Jekyll configuration for caching
+plugins:
+  - jekyll-sitemap
+
+# Cache settings
+url: 'https://anupbhat.me'
