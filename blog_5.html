@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapping the 10-Minute Delivery - Anup's Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+  </head>
+  <body>
+    <div class="paper"></div>
+
+    <main class="container">
+      <header class="header">
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+        <h1>Dark Store Map: Mapping the Hidden Infrastructure of 10-Minute Delivery</h1>
+        <p class="blog-meta">January 15, 2026</p>
+      </header>
+
+      <article class="blog-content">
+        <p class="blog-intro">
+          The secret to 10-minute delivery isn't driver speed.<br />
+          The average delivery distance is shorter than your morning walk.<br />
+          Dark stores are everywhere, hiding in plain sight.
+        </p>
+
+        <p>
+          I mapped quick-commerce infra in Indian cities. Every dark store, real routing data, 
+          actual coverage zones across major urban hubs, across Blinkit, Zepto, and Instamart.
+        </p>
+
+        <div class="project-links" style="margin: 2rem 0; text-align: center;">
+          <a href="https://darkstoremap.in/" target="_blank" class="notes-button" style="padding: 1rem 2rem; font-size: 1.1rem;">Explore the Live Map →</a>
+        </div>
+
+        <h2>The Problem We're Solving</h2>
+        <p>
+          Quick-commerce companies like Blinkit, Zepto, and Instamart promise 10-minute deliveries. 
+          But how much of a city can they actually reach in that time? This map answers that 
+          question by showing the true delivery footprint of every dark store.
+        </p>
+
+        <h2>Step 1: Finding All the Dark Stores</h2>
+        <p>
+          We needed the locations of every dark store across major Indian cities. A community member 
+          on Reddit (u/sigmaAs) had already mapped these stores using Google Maps. We exported 
+          that data as a geographic file (KML format) containing the exact coordinates of each 
+          store, organized by brand.
+        </p>
+        <p>
+          <strong>Result:</strong> A dataset of all known Blinkit, Zepto, and Instamart dark store 
+          locations across Bangalore, Mumbai, Delhi, Hyderabad, and Pune.
+        </p>
+
+        <h2>Step 2: Generating Coverage Zones (Isochrones)</h2>
+        <p>
+          Instead of drawing simple circles around each store (which would be inaccurate), we used 
+          <strong>isochrones</strong>. These are shapes that represent all the areas reachable 
+          from a point within a specific time, accounting for actual roads, one-ways, and 
+          traffic patterns.
+        </p>
+        
+        <p>We used two different calculation methods:</p>
+        
+        <ul class="blog-list">
+          <li>
+            <strong>For Walking (Customer Accessibility):</strong> Based on average human walking 
+            speed of 5 km/hr. Shows what areas a customer can walk to the store from in 10 minutes.
+          </li>
+          <li>
+            <strong>For Delivery (Rider Coverage):</strong> Based on area-specific average speeds 
+            for delivery riders. Different neighborhoods have different speeds based on road 
+            conditions and traffic density.
+          </li>
+        </ul>
+
+        <p>
+          For example: Koramangala averages 15 km/hr, Whitefield averages 22 km/hr, while HSR Layout 
+          averages 17 km/hr. These speeds were calibrated for each locality across all five cities 
+          using Geoapify's Isolines API.
+        </p>
+
+        <h2>Step 3: Pre-Computing Everything</h2>
+        <p>
+          Real-time API calls for hundreds of stores would be slow and expensive. So we 
+          pre-computed all the isochrone data: Every city × Every store × Both modes (walk + delivery).
+        </p>
+        <p>
+          This resulted in high-fidelity polygon data stored as JSON files. When you open the app, 
+          it loads instantly because everything is already calculated.
+        </p>
+        
+        <p>Data sizes give you an idea of coverage density:</p>
+        <ul class="blog-list">
+          <li>Bangalore delivery mode: ~54 MB of polygon data</li>
+          <li>Delhi delivery mode: ~49 MB of polygon data</li>
+          <li>Pune and Hyderabad: ~11-12 MB each</li>
+        </ul>
+
+        <h2>Step 4: Adding Orientation Layers</h2>
+        <p>
+          A coverage map is only useful if you can orient yourself. We added:
+        </p>
+        <ul class="blog-list">
+          <li>
+            <strong>Metro Lines:</strong> Extracted from Overpass Turbo (OpenStreetMap). Queried 
+            for all metro/rail lines with their official colors, exported as GeoJSON, and overlaid 
+            on the map.
+          </li>
+          <li>
+            <strong>Geographic Features:</strong> Lakes, parks, and major landmarks are visible 
+            on the base map with city labels and neighborhood names for quick reference.
+          </li>
+        </ul>
+
+        <h2>Step 5: The Visualization</h2>
+        <p>
+          Everything comes together on an interactive Leaflet map:
+        </p>
+        <ul class="blog-list">
+          <li><strong>Heatmap Mode:</strong> Overlapping coverage areas blend together, showing coverage density.</li>
+          <li><strong>Polygon Mode:</strong> Individual store coverage zones are visible with clear boundaries.</li>
+          <li><strong>Brand Filtering:</strong> Toggle between Blinkit (yellow), Zepto (purple), and Instamart (orange).</li>
+          <li><strong>Quick Navigation:</strong> Jump to specific neighborhoods using area pills.</li>
+        </ul>
+
+        <h2>Key Insights</h2>
+        <ul class="blog-list">
+          <li><strong>Coverage Gaps:</strong> Instantly see which areas are underserved.</li>
+          <li><strong>Brand Comparison:</strong> Compare which platform has better coverage in your neighborhood.</li>
+          <li><strong>Accessibility Analysis:</strong> Click anywhere to test if that location is within 10-minute reach.</li>
+        </ul>
+
+        <div class="analytics-snapshot" style="margin: 3rem 0; padding: 2rem; border: 1px solid #000; border-radius: 4px;">
+            <h3 style="margin-top: 0;">Reports snapshot</h3>
+            <div style="display: flex; gap: 3rem; margin: 1.5rem 0;">
+                <div>
+                    <div style="font-size: 0.9rem; color: #666;">Active users</div>
+                    <div style="font-size: 2rem; font-weight: bold;">4.6K</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; color: #666;">New users</div>
+                    <div style="font-size: 2rem; font-weight: bold;">4.5K</div>
+                </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #888; margin-bottom: 0;">
+                21 Dec – 11 Jan • 100% of available data
+            </p>
+        </div>
+
+        <p class="blog-conclusion">
+          Explore the reality of the 10-minute promise at 
+          <a href="https://darkstoremap.in/" target="_blank">darkstoremap.in</a>.
+        </p>
+      </article>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
